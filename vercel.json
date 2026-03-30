@@ -4,16 +4,6 @@
   "outputDirectory": "client/dist",
   "installCommand": "npm install",
   "framework": "vite",
-  "env": {
-    "VITE_API_URL": {
-      "description": "API endpoint for frontend (e.g., https://api.yourdomain.com or relative /api)"
-    }
-  },
-  "functions": {
-    "server/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
