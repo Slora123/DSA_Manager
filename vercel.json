@@ -1,25 +1,16 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build --workspace=client",
+  "framework": "vite",
+  "buildCommand": "npm run vercel-build",
   "outputDirectory": "client/dist",
-  "installCommand": "npm install",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/dist"
-      }
-    },
-    {
-      "src": "server/index.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "server/data/**"
     }
-  ],
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/server/index.js"
+      "destination": "/api/index.js"
     },
     {
       "source": "/(.*)",
