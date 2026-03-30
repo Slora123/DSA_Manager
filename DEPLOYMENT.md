@@ -11,6 +11,8 @@ This guide covers deploying DSA Tracker to production.
 
 ## 🗄️ 1. Database Setup
 
+> **Note on Architecture**: This repository is configured automatically as a **monolith**. Both the React frontend and Express API are seamlessly deployed within **a single Vercel project**.
+
 ### Option A: Vercel Postgres (Recommended)
 
 1. Create a Vercel Postgres database in your Vercel project
@@ -43,22 +45,22 @@ psql -U postgres -d your_database -f server/data/schema.sql
 # Copy contents of server/data/schema.sql and execute
 ```
 
-## 🚀 2. Frontend Deployment (Vercel/Netlify)
+## 🚀 2. Application Deployment (Vercel)
 
-### Vercel Deployment
-
-#### Option 1: Direct from GitHub
+Thanks to the pre-configured `vercel.json` file in the root, Vercel will automatically build both the Vite frontend and compile the Node.js backend as serverless functions.
 
 1. Go to [vercel.com](https://vercel.com)
-2. Click "New Project"
-3. Import your GitHub repository
-4. **Framework**: Select "Vite"
-5. **Root Directory**: Set to `client/`
-6. **Build Command**: `npm run build`
-7. **Output Directory**: `dist`
+2. Click "Add New" -> "Project"
+3. Import your GitHub repository (`DSA_Management` or similar)
+4. **Project Name**: e.g., `dsa-tracker`
+5. **Framework Preset**: Leave as "Other" (Vercel reads the standard `vercel.json` automatically)
+6. **Root Directory**: Leave as `./` (Root)
+7. Expand **Environment Variables** and add:
+   - `POSTGRES_URL`: Your Neon/Vercel Postgres connection string
+   - `JWT_SECRET`: A long random string
 8. Click "Deploy"
 
-#### Option 2: GitHub Actions (Automatic)
+Vercel will build the frontend into `client/dist` and automatically route all `/api/*` traffic cleanly into the `server/index.js` backend serverless function!
 
 Add `.github/workflows/deploy-frontend.yml`:
 ```yaml
@@ -106,12 +108,9 @@ VITE_API_URL=https://your-api-domain.com/api
 2. Configure `vercel.json`:
    ```json
    {
-     "buildCommand": "cd server && npm install",
-     "outputDirectory": "server",
-     "env": {
-       "POSTGRES_URL": "@postgres_url",
-       "JWT_SECRET": "@jwt_secret"
-     }
+     "version": 2,
+     "builds": [{ "src": "index.js", "use": "@vercel/node" }],
+     "routes": [{ "src": "/(.*)", "dest": "index.js" }]
    }
    ```
 
