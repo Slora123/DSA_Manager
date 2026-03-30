@@ -104,6 +104,29 @@ router.patch('/:id/revise', async (req, res) => {
   }
 });
 
+// Undo revision mark
+router.patch('/:id/undo-revise', async (req, res) => {
+  try {
+    const { rows: problemRows } = await query('SELECT * FROM problems WHERE id = $1 AND user_id = $2', [req.params.id, req.user.id]);
+    if (problemRows.length === 0) return res.status(404).json({ message: 'Problem not found' });
+
+    const problem = problemRows[0];
+    const newCount = Math.max((problem.revision_count || 0) - 1, 0);
+    const nextDate = await scheduleNextRevision(new Date(problem.date_solved), newCount, []);
+
+    const updateQuery = `
+      UPDATE problems 
+      SET revision_count = $1, next_revision_date = $2
+      WHERE id = $3
+      RETURNING *
+    `;
+    const { rows: updatedRows } = await query(updateQuery, [newCount, nextDate, req.params.id]);
+    res.json(updatedRows[0]);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 // Delete a problem
 router.delete('/:id', async (req, res) => {
   try {

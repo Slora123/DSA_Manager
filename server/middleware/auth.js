@@ -16,6 +16,9 @@ const auth = (req, res, next) => {
     req.user = verified;
     next();
   } catch (err) {
+    if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError' || err.name === 'NotBeforeError') {
+      return res.status(401).json({ message: 'Token invalid or expired, access denied' });
+    }
     res.status(500).json({ error: err.message });
   }
 };
