@@ -1,0 +1,59 @@
+# Vercel build cache
+.vercel
+.vercel_build_output
+
+# Source control
+.git
+.gitignore
+.github
+
+# Dependencies
+node_modules
+server/node_modules
+client/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+client/dist
+dist
+build
+
+# Development
+.env
+.env.local
+server/.env
+client/.env
+
+# Documentation
+README.md
+SETUP.md
+CONTRIBUTING.md
+DEPLOYMENT.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+LICENSE
+
+# Test files
+*.test.js
+*.spec.js
+test/
+__tests__/
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Seed data and local files
+server/data/users.json
+server/data/database.json
+server/data/problems_*.json
+
+# Logs
+logs
+*.log

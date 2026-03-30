@@ -9,9 +9,39 @@
   A premium, high-performance web application designed for focused learning, smart revision scheduling, and comprehensive problem tracking.
 </p>
 
+<p align="center">
+  <a href="https://github.com/yourusername/DSA_Management/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/yourusername/DSA_Management?color=blue&style=flat-square">
+  </a>
+  <a href="https://github.com/yourusername/DSA_Management/releases">
+    <img alt="Release" src="https://img.shields.io/github/v/release/yourusername/DSA_Management?style=flat-square">
+  </a>
+  <a href="https://nodejs.org/">
+    <img alt="Node.js" src="https://img.shields.io/badge/node-18+-green?style=flat-square">
+  </a>
+  <a href="https://react.dev/">
+    <img alt="React" src="https://img.shields.io/badge/react-19-blue?style=flat-square">
+  </a>
+  <a href="https://github.com/yourusername/DSA_Management/issues">
+    <img alt="Issues" src="https://img.shields.io/github/issues/yourusername/DSA_Management?style=flat-square">
+  </a>
+  <a href="https://github.com/yourusername/DSA_Management/pulls">
+    <img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square">
+  </a>
+</p>
+
 ---
 
-## 🚀 Key Features
+## 🎯 Quick Links
+
+- [📖 Setup Guide](SETUP.md) - Get started locally
+- [🚀 Deployment Guide](DEPLOYMENT.md) - Deploy to production
+- [🤝 Contributing Guide](CONTRIBUTING.md) - How to contribute
+- [📋 Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
+- [🐛 Report a Bug](https://github.com/yourusername/DSA_Management/issues/new?template=bug_report.md)
+- [✨ Request a Feature](https://github.com/yourusername/DSA_Management/issues/new?template=feature_request.md)
+
+---
 
 ### 📅 Intelligent Revision Ecosystem
 - **Weekend-Optimized Scheduling**: Automatically aligns your revision workload with Saturdays and Sundays, keeping your weekdays clear for new learning.
@@ -70,12 +100,87 @@
 
 ## 🌍 Deployment
 
-### **Critical Deployment Requirement**
+### Quick Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyoursername%2FDSA_Management&env=POSTGRES_URL,JWT_SECRET&envDescription=Database%20connection%20and%20JWT%20secret)
+
+### Prerequisites
+- **Database**: PostgreSQL (Neon, Vercel Postgres, or AWS RDS)
+- **Secrets**: JWT_SECRET
+
+### Manual Deployment Steps
+
+1. **Connect to Vercel**:
+   ```bash
+   npm install -g vercel
+   vercel link
+   ```
+
+2. **Set Environment Variables**:
+   ```bash
+   vercel env add POSTGRES_URL
+   vercel env add JWT_SECRET
+   vercel env add VITE_API_URL
+   ```
+
+3. **Deploy**:
+   ```bash
+   vercel --prod
+   ```
+
+4. **Initialize Database**:
+   Run `server/data/schema.sql` on your PostgreSQL database
+
+For complete deployment guide, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'feat: add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+---
+
+## 📋 Critical Deployment Requirement
 This app is designed for **Vercel** with a **PostgreSQL** database (e.g., Vercel Postgres or Neon). You **MUST** run the `server/data/schema.sql` on your database before deploying to initialize the tables.
 
-For a full walkthrough, see the [Deployment Guide](deployment_guide.md).
+For a full walkthrough, see the [Deployment Guide](DEPLOYMENT.md).
 
 ---
 
 ## 📄 License
-MIT License - Developed with ❤️ for the DSA community.
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Contributors
+
+Thank you to all our contributors! We welcome new contributions. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 📞 Support
+
+- 📖 [Documentation](SETUP.md)
+- 🐛 [Report Issues](https://github.com/yourusername/DSA_Management/issues)
+- 💬 [Discussions](https://github.com/yourusername/DSA_Management/discussions)
+
+## 🔗 Resources
+
+- [LeetCode](https://leetcode.com/) - Problem platform
+- [NeetCode](https://neetcode.io/) - Study guide
+- [Neon](https://neon.tech/) - PostgreSQL hosting
+- [Vercel](https://vercel.com/) - Hosting & deployment
+
+---
+
+<div align="center">
+
+Made with ❤️ for the DSA learning community
+
+[⬆ Back to Top](#dsa-tracker)
+
+</div>

@@ -1,13 +1,39 @@
 {
-  "name": "dsa",
-  "private": true,
-  "version": "0.0.0",
+  "name": "dsa-tracker-client",
+  "version": "1.0.0",
+  "description": "DSA Tracker - React frontend for Data Structures & Algorithms learning platform",
   "type": "module",
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/DSA_Management.git",
+    "directory": "client"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/DSA_Management/issues"
+  },
+  "homepage": "https://github.com/yourusername/DSA_Management#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "react",
+    "dsa",
+    "algorithms",
+    "data-structures",
+    "learning",
+    "tracker",
+    "vite",
+    "tailwind"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "axios": "^1.13.6",
@@ -22,21 +48,21 @@
     "react-tooltip": "^5.30.0",
     "recharts": "^3.8.0",
     "tailwind-merge": "^3.5.0",
-    "xlsx": "^0.18.5",
-    "vite": "^8.0.0",
-    "@vitejs/plugin-react": "^6.0.0",
-    "postcss": "^8.5.8",
-    "autoprefixer": "^10.4.27",
-    "tailwindcss": "^4.2.1",
-    "@tailwindcss/postcss": "^4.2.1"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.0",
+    "autoprefixer": "^10.4.27",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.4.0"
+    "globals": "^17.4.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
+    "vite": "^8.0.0"
   }
 }

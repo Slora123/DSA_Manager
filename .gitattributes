@@ -1,0 +1,66 @@
+# Git attributes for consistent line endings and language detection
+
+# Auto detect text files and normalize line endings
+* text=auto
+
+# Source code
+*.js text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+# Node
+node_modules/ export-ignore
+npm-debug.log export-ignore
+yarn-error.log export-ignore
+pnpm-debug.log export-ignore
+
+# Build outputs
+dist/ export-ignore
+build/ export-ignore
+.next/ export-ignore
+
+# Environment
+.env export-ignore
+.env.local export-ignore
+.env.*.local export-ignore
+
+# IDE
+.vscode/ export-ignore
+.idea/ export-ignore
+*.swp export-ignore
+*.swo export-ignore
+.DS_Store export-ignore
+
+# Testing
+coverage/ export-ignore
+.nyc_output/ export-ignore
+
+# Logs
+*.log export-ignore
+logs/ export-ignore

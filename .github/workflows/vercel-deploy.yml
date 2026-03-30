@@ -1,0 +1,119 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main, production]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - preview
+          - production
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: 
+      name: ${{ github.ref == 'refs/heads/main' && 'staging' || 'production' }}
+      url: ${{ steps.deploy.outputs.deployment-url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Install workspace dependencies
+        run: npm install --workspaces
+
+      - name: Run linter
+        run: npm run lint --workspace=client
+        continue-on-error: true
+
+      - name: Build client
+        run: npm run build --workspace=client
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Build server (validate)
+        run: node -c server/server.js && node -c server/index.js
+        continue-on-error: true
+
+      - name: Deploy to Vercel
+        id: deploy
+        uses: vercel/action@v5
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
+          production: ${{ github.ref == 'refs/heads/production' }}
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+      - name: Comment PR with deployment URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 Preview deployment ready at: ${{ steps.deploy.outputs.deployment-url }}'
+            })
+
+      - name: Slack notification (success)
+        if: success()
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "✅ DSA Tracker deployed successfully",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ *Deployment Successful*\n*Branch:* ${{ github.ref }}\n*Commit:* ${{ github.sha }}\n*Deployment:* ${{ steps.deploy.outputs.deployment-url }}"
+                  }
+                }
+              ]
+            }
+        continue-on-error: true
+
+      - name: Slack notification (failure)
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "❌ DSA Tracker deployment failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "❌ *Deployment Failed*\n*Branch:* ${{ github.ref }}\n*Commit:* ${{ github.sha }}\n*View:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }
+        continue-on-error: true

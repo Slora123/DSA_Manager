@@ -1,0 +1,43 @@
+name: Lint & Test
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --workspaces
+
+      - name: Lint client
+        run: cd client && npm run lint
+        continue-on-error: true
+
+      - name: Build client
+        run: cd client && npm run build
+
+      - name: Check server syntax
+        run: node -c server/index.js && node -c server/server.js
+        continue-on-error: true
+
+      - name: Display build output info
+        run: |
+          echo "✅ Linting and build checks completed"
+          echo "Build artifacts in client/dist/"

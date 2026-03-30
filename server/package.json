@@ -1,0 +1,56 @@
+{
+  "name": "dsa-tracker-server",
+  "version": "1.0.0",
+  "description": "DSA Tracker - Backend API server for Data Structures & Algorithms learning platform",
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/DSA_Management.git",
+    "directory": "server"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/DSA_Management/issues"
+  },
+  "homepage": "https://github.com/yourusername/DSA_Management#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "node test.js",
+    "test:db": "node test-db.js",
+    "seed": "node seed.js",
+    "lint": "echo 'Lint not configured' && exit 0"
+  },
+  "dependencies": {
+    "axios": "^1.13.6",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0",
+    "uuid": "^13.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
+    "nodemon": "^3.1.14"
+  },
+  "keywords": [
+    "dsa",
+    "algorithms",
+    "data-structures",
+    "learning",
+    "tracker",
+    "leetcode",
+    "neetcode",
+    "interview-prep"
+  ]
+}

@@ -1,24 +1,49 @@
 {
-  "name": "dsa-tracker-root",
+  "name": "dsa-tracker",
   "version": "1.0.0",
-  "dependencies": {
-    "axios": "^1.13.6",
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.6",
-    "date-fns": "^4.1.0",
-    "dotenv": "^17.3.1",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.3",
-    "pg": "^8.20.0",
-    "uuid": "^13.0.0",
-    "xlsx": "^0.18.5"
+  "description": "DSA Tracker - A premium platform for focused DSA learning with smart revision scheduling",
+  "private": true,
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/DSA_Management.git"
   },
+  "bugs": {
+    "url": "https://github.com/yourusername/DSA_Management/issues"
+  },
+  "homepage": "https://github.com/yourusername/DSA_Management#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "scripts": {
-    "build": "cd client && npm install && npm run build",
-    "install-all": "npm install && cd client && npm install"
+    "install": "npm install --workspaces",
+    "dev": "npm run dev --workspaces",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm run build --workspaces",
+    "build:server": "npm run build --workspace=server",
+    "build:client": "npm run build --workspace=client",
+    "lint": "npm run lint --workspaces",
+    "start": "npm run start --workspace=server",
+    "test": "npm run test --workspaces",
+    "audit": "npm audit --workspaces"
   },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.1",
-    "nodemon": "^3.1.14"
-  }
+  "keywords": [
+    "dsa",
+    "algorithms",
+    "data-structures",
+    "learning",
+    "tracker",
+    "leetcode",
+    "neetcode",
+    "interview-prep",
+    "revision-scheduling"
+  ],
+  "devDependencies": {}
 }

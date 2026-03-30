@@ -1,0 +1,43 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main, develop]
+  schedule:
+    # Run daily at midnight UTC
+    - cron: '0 0 * * *'
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install --workspaces
+
+      - name: Run npm audit
+        run: npm audit --ignore-scripts
+        continue-on-error: true
+
+      - name: Check for vulnerable dependencies
+        run: |
+          echo "Running security checks..."
+          npm audit --workspaces --audit-level=high
+        continue-on-error: true
+
+      - name: Upload audit results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: audit-results
+          path: |
+            server/package-lock.json
+            client/package-lock.json
